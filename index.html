@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pergunta Interativa</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #330c0c;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Garante que a animação não crie barras de rolagem */
+        }
+        .container {
+            text-align: center;
+            position: relative;
+            width: 80vw; /* Ajuste a largura da área de movimento */
+            height: 80vh; /* Ajuste a altura da área de movimento */
+            overflow: hidden; /* Garante que o título não saia da área definida */
+        }
+        .moving-title {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffffff; /* Cor do texto do título */
+            position: absolute;
+            top: 10px; /* Posição inicial do título */
+            left: 10px;
+            transition: top 0.5s, left 0.5s; /* Transição suave para a nova posição */
+        }
+        .container p {
+            color: #ffffff; /* Cor do texto da pergunta */
+            margin: 80px 0 20px 0; /* Ajuste a margem para dar espaço para o título */
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Espaçamento entre os botões */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #sim {
+            color: #fff; /* Cor do texto do botão "Sim" */
+            background-color: #4CAF50; /* Cor de fundo do botão "Sim" */
+            border: none;
+            border-radius: 5px;
+        }
+        #nao {
+            color: #fff; /* Cor do texto do botão "Não" */
+            background-color: #f44336; /* Cor de fundo do botão "Não" */
+            border: none;
+            border-radius: 5px;
+            position: relative; /* Inicialmente está na posição normal */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="moving-title" id="title">Paola</div>
+        <p>Mozi libera o anel?</p>
+        <div class="button-container">
+            <button id="sim">Sim</button>
+            <button id="nao">Não</button>
+        </div>
+    </div>
+    <script>
+        const title = document.getElementById('title');
+        const container = document.querySelector('.container');
+
+        function moveTitle() {
+            const containerRect = container.getBoundingClientRect();
+            const titleRect = title.getBoundingClientRect();
+
+            let newLeft = Math.random() * (containerRect.width - titleRect.width);
+            let newTop = Math.random() * (containerRect.height - titleRect.height);
+
+            title.style.left = `${newLeft}px`;
+            title.style.top = `${newTop}px`;
+        }
+
+        title.addEventListener('mouseover', moveTitle);
+        title.addEventListener('touchstart', moveTitle); // Adicionado para dispositivos móveis
+
+        document.getElementById('sim').addEventListener('click', function() {
+            window.location.href = 'https://www.youtube.com/watch?v=-dy1uuJa-vw';
+        });
+
+        document.getElementById('nao').addEventListener('click', function() {
+            // Move o botão "Não" para uma nova posição aleatória
+            let x = Math.floor(Math.random() * (window.innerWidth - 120)); // Ajusta para não sair da tela
+            let y = Math.floor(Math.random() * (window.innerHeight - 60)); // Ajusta para não sair da tela
+            document.getElementById('nao').style.position = 'absolute'; // Posiciona o botão "Não" de forma absoluta
+            document.getElementById('nao').style.left = x + 'px';
+            document.getElementById('nao').style.top = y + 'px';
+        });
+
+        // Garantir que o botão "Não" comece na posição correta
+        document.getElementById('nao').style.position = 'relative'; // Inicialmente está na posição normal
+    </script>
+</body>
+</html>
